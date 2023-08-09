@@ -1,12 +1,20 @@
 #include "Ball.hpp"
 #include <cmath>
 
+Ball::Ball() = default;
+
+Ball::Ball(const Point &center, const Velocity &velocity, const Color &color, const double radius, const bool isCollidable)
+    : m_center{center}, m_velocity {velocity}, m_radius{radius}, m_isCollidable {isCollidable}, m_color{color} {}
+
+Ball::Ball(const Point &center, const Velocity &velocity, const Color &color, const double radius, const bool isCollidable, const double mass)
+    : m_center{center}, m_velocity {velocity}, m_radius{radius}, m_isCollidable {isCollidable}, m_color{color},  m_mass{mass} {}
+
 /**
  * Sets the speed of the object
  * @param velocity new speed value
  */
 void Ball::setVelocity(const Velocity& velocity) {
-    // TODO: place for improvement
+    m_velocity.setVector(velocity.vector());
 }
 
 /**
@@ -14,7 +22,7 @@ void Ball::setVelocity(const Velocity& velocity) {
  */
 Velocity Ball::getVelocity() const {
     // TODO: place for improvement
-    return {};
+    return m_velocity;
 }
 
 
@@ -27,7 +35,7 @@ Velocity Ball::getVelocity() const {
  * @param painter render context
  */
 void Ball::draw(Painter& painter) const {
-    // TODO: place for improvement
+    painter.draw(m_center, m_radius,m_color);
 }
 
 /**
@@ -35,15 +43,16 @@ void Ball::draw(Painter& painter) const {
  * @param center new facility center
  */
 void Ball::setCenter(const Point& center) {
-    // TODO: place for improvement
+    m_center.x = center.x;
+    m_center.y = center.y;
+
 }
 
 /**
  * @return object center
  */
 Point Ball::getCenter() const {
-    // TODO: place for improvement
-    return {};
+    return m_center;
 }
 
 
@@ -54,7 +63,7 @@ Point Ball::getCenter() const {
  */
 double Ball::getRadius() const {
     // TODO: place for improvement
-    return {};
+    return m_radius;
 }
 
 /**
@@ -65,6 +74,13 @@ double Ball::getRadius() const {
  * equivalent to volume: PI * radius^3 * 4. / 3.
  */
 double Ball::getMass() const {
-    // TODO: place for improvement
-    return {};
+    return m_mass;
 }
+
+Color Ball::getColor () const{
+    return m_color;
+ }
+
+ bool Ball::isCollidable() const { 
+    return m_isCollidable;
+  }

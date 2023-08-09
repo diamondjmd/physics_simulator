@@ -3,6 +3,9 @@
 #include "Physics.h"
 #include <vector>
 
+//Debug
+#include <iostream>
+
 class Painter;
 
 class World {
@@ -10,6 +13,9 @@ class World {
     World(const std::string& worldFilePath);
     void show(Painter& painter) const;
     void update(double time);
+
+    friend std::istream &operator>>(std::istream& stream, Point &point);
+    friend std::istream &operator>>(std::istream& stream, Color &color);
 
   private:
     // The world boundaries are set by the corners of the rectangle

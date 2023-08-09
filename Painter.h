@@ -24,7 +24,7 @@ class Painter {
     /**
      * Draws a rectangle of color
      * @param topLeft top left corner coordinate
-     * @param bottomRight координата нижнего правого угла
+     * @param bottomRight bottom right corner coordinate
      * @param color fill color
      */
     void draw(const Point& topLeft, const Point& bottomRight,

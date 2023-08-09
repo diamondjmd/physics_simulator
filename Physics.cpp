@@ -22,15 +22,18 @@ void Physics::update(std::vector<Ball>& balls, const size_t ticks) const {
 
 void Physics::collideBalls(std::vector<Ball>& balls) const {
     for (auto a = balls.begin(); a != balls.end(); ++a) {
-        for (auto b = std::next(a); b != balls.end(); ++b) {
-            const double distanceBetweenCenters2 =
-                distance2(a->getCenter(), b->getCenter());
-            const double collisionDistance = a->getRadius() + b->getRadius();
-            const double collisionDistance2 =
-                collisionDistance * collisionDistance;
+        //Debug
+        if ( a->isCollidable()){
+            for (auto b = std::next(a); b != balls.end(); ++b) {
+                const double distanceBetweenCenters2 =
+                    distance2(a->getCenter(), b->getCenter());
+                const double collisionDistance = a->getRadius() + b->getRadius();
+                const double collisionDistance2 =
+                    collisionDistance * collisionDistance;
 
-            if (distanceBetweenCenters2 < collisionDistance2) {
-                processCollision(*a, *b, distanceBetweenCenters2);
+                if (distanceBetweenCenters2 < collisionDistance2) {
+                    processCollision(*a, *b, distanceBetweenCenters2);
+                }
             }
         }
     }
@@ -79,7 +82,7 @@ void Physics::processCollision(Ball& a, Ball& b,
     const double p =
         2 * (dot(aV, normal) - dot(bV, normal)) / (a.getMass() + b.getMass());
 
-    // задаем новые скорости мячей после столкновения
+    // set new ball speeds after collision
     a.setVelocity(Velocity(aV - normal * p * a.getMass()));
     b.setVelocity(Velocity(bV + normal * p * b.getMass()));
 }
