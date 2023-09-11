@@ -7,6 +7,15 @@ class Point {
     inline Point(double x, double y) : x{x}, y{y} {};
     double x{};
     double y{};
+
+    //take two coordinates in the Cartesian coordinate system, 
+    //and find the point directly in between both of them.
+    Point midPoint(const Point& point) {
+        Point result;
+        result.x = (x + point.x) / 2;
+        result.y = (y + point.y) / 2;
+        return result;
+    }
 };
 
 inline Point operator-(const Point& lhs, const Point& rhs) {

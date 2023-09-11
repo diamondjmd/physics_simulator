@@ -59,7 +59,7 @@ World::World(const std::string& worldFilePath) {
         balls.push_back(Ball(center, velocity, color, radius ,isCollidable));
 
         //Debug
-        std::cout << "debugging3\n";
+        std::cout << "debugging12\n";
     }
 }
 
@@ -72,6 +72,10 @@ void World::show(Painter& painter) const {
     // We call the drawing of each ball
     for (const Ball& ball : balls) {
         ball.draw(painter);
+    }
+
+    for (const Dust& dust: dusts) {
+        dust.draw(painter);
     }
 }
 
@@ -97,5 +101,6 @@ void World::update(double time) {
     const auto ticks = static_cast<size_t>(std::floor(time / timePerTick));
     restTime = time - double(ticks) * timePerTick;
 
-    physics.update(balls, ticks);
+    //physics.update(balls, ticks);
+    physics.update(balls, dusts, ticks);
 }

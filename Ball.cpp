@@ -9,6 +9,9 @@ Ball::Ball(const Point &center, const Velocity &velocity, const Color &color, co
 Ball::Ball(const Point &center, const Velocity &velocity, const Color &color, const double radius, const bool isCollidable, const double mass)
     : m_center{center}, m_velocity {velocity}, m_radius{radius}, m_isCollidable {isCollidable}, m_color{color},  m_mass{mass} {}
 
+Ball::Ball(const Ball &ball)
+    : m_center{ball.m_center}, m_velocity {ball.m_velocity}, m_radius{ball.m_radius}, m_isCollidable {ball.m_isCollidable}, m_color{ball.m_color},  m_mass{ball.m_mass} {}
+
 /**
  * Sets the speed of the object
  * @param velocity new speed value
@@ -62,7 +65,6 @@ Point Ball::getCenter() const {
  * is not required
  */
 double Ball::getRadius() const {
-    // TODO: place for improvement
     return m_radius;
 }
 
@@ -81,6 +83,18 @@ Color Ball::getColor () const{
     return m_color;
  }
 
- bool Ball::isCollidable() const { 
+bool Ball::isCollidable() const { 
     return m_isCollidable;
   }
+
+std::ostream &operator<<(std::ostream &stream, const Point &point){
+        return stream << "(" << point.x << ", " << point.y << ")";
+}
+std::ostream &operator<<(std::ostream &stream, const Ball &ball){
+    return stream << "\n=> center " << ball.getCenter() 
+        << ", velocity " << ball.getVelocity().vector()
+        << ", rgb (" << ball.getColor().red()  << ", " << ball.getColor().green()  << ", " << ball.getColor().blue()  << ")"
+        << ", radius: " << ball.getRadius()
+        << ", mass:" << ball.getMass()
+        << ", " <<(ball.isCollidable()?  "collidable" : "NOT collidable");
+}

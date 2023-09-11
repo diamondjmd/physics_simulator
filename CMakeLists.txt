@@ -32,7 +32,7 @@ if (MSVC)
 endif ()
 
 add_executable(physics
-        main.cpp World.cpp Ball.cpp Physics.cpp Color.cpp Painter.cpp
+        main.cpp World.cpp Ball.cpp Physics.cpp Color.cpp Painter.cpp Dust.cpp
         black_box/Application.cpp black_box/View.cpp black_box/PainterImpl.cpp)
 target_link_libraries(physics PRIVATE sfml-graphics)
 
@@ -40,4 +40,3 @@ target_compile_options(physics PRIVATE
         $<$<CXX_COMPILER_ID:MSVC>:/W4 /EHsc /WX>
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -g >
         )
-
