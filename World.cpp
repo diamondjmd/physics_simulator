@@ -3,16 +3,10 @@
 #include <fstream>
 
 
-// Duration of one simulation tick.
-// See update() for details
-// Should not be changed
-static constexpr double timePerTick = 0.001;
-
-//friends
 std::istream &operator>>(std::istream& stream, Point &point){
         stream >> point.x >> point.y;
         return stream;
-    }
+}
     
 std::istream &operator>>(std::istream& stream, Color &color){
         double r,g,b;
@@ -21,7 +15,12 @@ std::istream &operator>>(std::istream& stream, Color &color){
         color.setGreen(g);
         color.setBlue(b);
         return stream;
-    }
+}
+
+// Duration of one simulation tick.
+// See update() for details
+// Should not be changed
+static constexpr double timePerTick = 0.001;
 
 /**
 * Constructs a world object to simulate
@@ -57,9 +56,6 @@ World::World(const std::string& worldFilePath) {
 
         // balls.push_back(Ball(Point(x, y), radius, isCollidable, Color(red, green, blue) ,Velocity(vx, vy)));
         balls.push_back(Ball(center, velocity, color, radius ,isCollidable));
-
-        //Debug
-        std::cout << "debugging12\n";
     }
 }
 
@@ -101,6 +97,5 @@ void World::update(double time) {
     const auto ticks = static_cast<size_t>(std::floor(time / timePerTick));
     restTime = time - double(ticks) * timePerTick;
 
-    //physics.update(balls, ticks);
     physics.update(balls, dusts, ticks);
 }
