@@ -36,10 +36,10 @@ void Physics::collideBalls(std::vector<Ball>& balls, std::vector<Dust> &dusts) c
                         collisionDistance * collisionDistance;
 
                     if (distanceBetweenCenters2 < collisionDistance2) {
-                        //processCollision(*a, *b, distanceBetweenCenters2, dusts);
+                        processCollision(*a, *b, distanceBetweenCenters2, dusts);
                         createDust (*a, *b,dusts, 20);
-                        b = balls.erase(b);
-                        a = balls.erase(a);
+                        // b = balls.erase(b);
+                        // a = balls.erase(a);
                         break;
                     }
                 }
@@ -130,16 +130,11 @@ void Physics::createDust(const Ball &a, const Ball &b,
     
     Point midpointCenter = midPoint(a.getCenter(),b.getCenter());  
     const double midPointRadius = a.getRadius () + b.getRadius(); 
-
     double length, theta;
-
-    //std::mt19937 gen(std::random_device {}()); 
     std::uniform_real_distribution<> dist(0.0, 1.0);
  
     for (size_t i=0; i< nParticles; i++){
-        //theta = 2 * PI * (dist(gen));
-        theta = 2 * PI * (dist(m_gen));
-        //length = midPointRadius * std::sqrt(dist(gen));
+        theta = 2 * Ball::PI * (dist(m_gen));
         length = midPointRadius * std::sqrt(dist(m_gen));       
         Point pCenter(  midpointCenter.x + length * std::cos(theta), 
                         midpointCenter.y + length * std::sin(theta));
@@ -149,9 +144,9 @@ void Physics::createDust(const Ball &a, const Ball &b,
 
         Point minVelocity(  std::min(a.getVelocity().vector().x, b.getVelocity().vector().x),
                             std::min(a.getVelocity().vector().y, b.getVelocity().vector().y));
-        
-        Point pVelocity(minVelocity.x + ((double) std::rand() /RAND_MAX * maxVelocity.x) ,
-                        minVelocity.y + ((double) std::rand() /RAND_MAX * maxVelocity.y));
+
+        Point pVelocity(minVelocity.x + (dist(m_gen) * maxVelocity.x),
+                        minVelocity.y + (dist(m_gen) * maxVelocity.y));
 
         dusts.push_back(Dust(pCenter, pVelocity, 400));
     }

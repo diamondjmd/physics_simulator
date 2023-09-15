@@ -25,11 +25,11 @@ class Physics {
                     std::vector<Dust> &dusts,
                     const size_t nParticles) const;
 
-    const double PI = 3.141592653589793238463;
+
     
   private:
     Point topLeft;
     Point bottomRight;
     double timePerTick;
-    std::mt19937 m_gen;
+    mutable std::mt19937 m_gen;
 };

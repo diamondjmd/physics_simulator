@@ -73,7 +73,8 @@ double Ball::getRadius() const {
  * equivalent to volume: PI * radius^3 * 4. / 3.
  */
 double Ball::getMass() const {
-    return m_mass;
+    //return m_mass;
+    return PI * std::pow( m_radius, 3) * 4. / 3.;
 }
 
 Color Ball::getColor () const{

@@ -18,6 +18,8 @@ class Ball {
         double getMass() const;
         Color getColor() const;
         bool isCollidable() const;
+
+       static constexpr double PI = 3.141592653589793238463;
         
     private:
         Point m_center;
